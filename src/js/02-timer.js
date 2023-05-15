@@ -10,6 +10,8 @@ const refs = {
   minutesEl: document.querySelector('[data-minutes]'),
   secondsEl: document.querySelector('[data-seconds]'),
   timeEndEl: document.querySelector('.time-end'),
+  timerEl: document.querySelector('.timer'),
+  fieldEl: document.querySelector('.field'),
 };
 
 let intervalId = null;
@@ -31,7 +33,7 @@ flatpickr(refs.input, options);
 
 function setTimer(currentDate, futureDate) {
   if (futureDate.getTime() <= currentDate.getTime()) {
-    Notiflix.Report.failure('Please choose a date in the future');
+    Notiflix.Report.warning('Please choose a date in the future');
     return;
   }
   refs.startBtn.removeAttribute('disabled');
@@ -41,7 +43,6 @@ function setTimer(currentDate, futureDate) {
 refs.startBtn.addEventListener('click', onBtnClick);
 
 function onBtnClick() {
-  refs.timeEndEl.textContent = ' ';
   refs.input.setAttribute('disabled', 'true');
   refs.startBtn.setAttribute('disabled', 'true');
   intervalId = setInterval(() => {
@@ -86,3 +87,6 @@ function renderTextContent(time) {
   refs.minutesEl.textContent = convertMs(time).minutes;
   refs.secondsEl.textContent = convertMs(time).seconds;
 }
+
+refs.timerEl.style.display = 'flex';
+refs.timerEl.style.gap = '20px';
