@@ -10,6 +10,11 @@ refs.form.addEventListener('submit', e => {
   const step = Number(e.currentTarget.elements.step.value);
   const amount = Number(e.currentTarget.elements.amount.value);
 
+  if (step < 0 || delay < 0 || amount <= 0) {
+    Notiflix.Notify.failure('Invalid input values');
+    return;
+  }
+
   for (let i = 1; i <= amount; i += 1) {
     createPromise(i, delay)
       .then(({ position, delay }) =>
